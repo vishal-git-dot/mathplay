@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MathPlay — Practice Mental Math</title>
+<meta name="description" content="Practice addition, subtraction, multiplication, division, and percentages with a friendly quiz game. Free, fast, and generates fresh questions every time." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231F2A44'/%3E%3Ctext x='50' y='68' font-size='60' font-family='Georgia' fill='%23F7F8F4' text-anchor='middle'%3E+%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body data-cat="addition">
+
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="logo">Math<span>Play</span></div>
+    <div class="stats-chip" id="navStatsChip">Solved 0 · 0% accuracy</div>
+  </div>
+</header>
+
+<main class="app-main">
+
+  <!-- HOME SCREEN -->
+  <section id="screen-home" class="screen active" data-screen="home">
+    <div class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow">Mental math, gamified</p>
+        <h1 class="hero-title">Where numbers meet their match.</h1>
+        <p class="hero-sub">Pick a category, then practice at your own pace or race the clock in a timed quiz. Every problem is generated fresh, so no two sessions are ever the same.</p>
+        <button class="btn btn-solid btn-lg" id="heroCta">Choose a Category</button>
+
+        <div class="equation-reel" aria-hidden="true">
+          <div class="reel-tile" id="reelA">7</div>
+          <div class="reel-tile reel-op" id="reelOp">×</div>
+          <div class="reel-tile" id="reelB">8</div>
+          <div class="reel-eq">=</div>
+          <div class="reel-tile reel-result" id="reelResult">56</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2 class="section-title" id="categoriesTitle">Choose a category</h2>
+      <div class="categories" id="categories">
+
+        <article class="cat-card" data-category="addition">
+          <div class="cat-icon">+</div>
+          <h3 class="cat-name">Addition</h3>
+          <p class="cat-desc">Add two or three numbers together, from single digits to the hundreds.</p>
+          <div class="cat-actions">
+            <button class="btn btn-ghost" data-mode="practice">Practice</button>
+            <button class="btn btn-solid" data-mode="quiz">Quiz</button>
+          </div>
+        </article>
+
+        <article class="cat-card" data-category="subtraction">
+          <div class="cat-icon">−</div>
+          <h3 class="cat-name">Subtraction</h3>
+          <p class="cat-desc">Find the difference between numbers without reaching for a calculator.</p>
+          <div class="cat-actions">
+            <button class="btn btn-ghost" data-mode="practice">Practice</button>
+            <button class="btn btn-solid" data-mode="quiz">Quiz</button>
+          </div>
+        </article>
+
+        <article class="cat-card" data-category="multiplication">
+          <div class="cat-icon">×</div>
+          <h3 class="cat-name">Multiplication</h3>
+          <p class="cat-desc">Sharpen your times tables, from 5 × 5 up to two-digit products.</p>
+          <div class="cat-actions">
+            <button class="btn btn-ghost" data-mode="practice">Practice</button>
+            <button class="btn btn-solid" data-mode="quiz">Quiz</button>
+          </div>
+        </article>
+
+        <article class="cat-card" data-category="division">
+          <div class="cat-icon">÷</div>
+          <h3 class="cat-name">Division</h3>
+          <p class="cat-desc">Split numbers evenly and get comfortable with clean division facts.</p>
+          <div class="cat-actions">
+            <button class="btn btn-ghost" data-mode="practice">Practice</button>
+            <button class="btn btn-solid" data-mode="quiz">Quiz</button>
+          </div>
+        </article>
+
+        <article class="cat-card" data-category="percentage">
+          <div class="cat-icon">%</div>
+          <h3 class="cat-name">Percentages</h3>
+          <p class="cat-desc">Work out percentages of numbers — the kind you actually use at checkout.</p>
+          <div class="cat-actions">
+            <button class="btn btn-ghost" data-mode="practice">Practice</button>
+            <button class="btn btn-solid" data-mode="quiz">Quiz</button>
+          </div>
+        </article>
+
+        <article class="cat-card" data-category="mixed">
+          <div class="cat-icon">✦</div>
+          <h3 class="cat-name">Mixed Challenge</h3>
+          <p class="cat-desc">A shuffled mix of every operation. Nothing is off limits.</p>
+          <div class="cat-actions">
+            <button class="btn btn-ghost" data-mode="practice">Practice</button>
+            <button class="btn btn-solid" data-mode="quiz">Quiz</button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SETUP SCREEN -->
+  <section id="screen-setup" class="screen" data-screen="setup">
+    <div class="container narrow">
+      <button class="btn-link" id="setupBack">← Back to categories</button>
+
+      <div class="setup-head">
+        <span class="setup-icon" id="setupIcon">+</span>
+        <div>
+          <h2 id="setupTitle">Addition</h2>
+          <p id="setupMode">Practice mode</p>
+        </div>
+      </div>
+
+      <p class="setup-tip" id="setupTip">Tip: Add the tens first, then the ones.</p>
+
+      <div class="option-group">
+        <h3>Choose your difficulty</h3>
+        <div class="option-row" id="difficultyRow">
+          <button class="option-btn" data-value="easy">
+            <span class="opt-label">Easy</span>
+            <span class="opt-sub">Small numbers, gentle pace</span>
+          </button>
+          <button class="option-btn selected" data-value="medium">
+            <span class="opt-label">Medium</span>
+            <span class="opt-sub">A steady challenge</span>
+          </button>
+          <button class="option-btn" data-value="hard">
+            <span class="opt-label">Hard</span>
+            <span class="opt-sub">Big numbers, sharp focus</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="option-group" id="countGroup">
+        <h3>How many questions?</h3>
+        <div class="option-row" id="countRow">
+          <button class="option-btn" data-value="10"><span class="opt-label">10</span></button>
+          <button class="option-btn selected" data-value="15"><span class="opt-label">15</span></button>
+          <button class="option-btn" data-value="20"><span class="opt-label">20</span></button>
+        </div>
+      </div>
+
+      <button class="btn btn-solid btn-lg btn-block" id="startBtn">Start Practicing</button>
+    </div>
+  </section>
+
+  <!-- PLAY SCREEN -->
+  <section id="screen-play" class="screen" data-screen="play">
+    <div class="container narrow">
+
+      <div class="play-top">
+        <button class="btn-link" id="exitPlayBtn">← Exit</button>
+        <div class="play-progress" id="playProgress" hidden>Question 1 of 15</div>
+        <div class="play-timer" id="playTimerWrap" hidden>
+          <svg class="timer-ring" viewBox="0 0 60 60">
+            <circle class="timer-ring-bg" cx="30" cy="30" r="26"></circle>
+            <circle class="timer-ring-fg" id="timerRingFg" cx="30" cy="30" r="26"></circle>
+          </svg>
+          <span class="timer-text" id="timerText">15</span>
+        </div>
+      </div>
+
+      <div class="progress-bar-track" id="progressBarTrack" hidden>
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+
+      <div class="practice-stats" id="practiceStats" hidden>
+        <span>Solved <strong id="statSolved">0</strong></span>
+        <span>Accuracy <strong id="statAccuracy">0%</strong></span>
+        <span class="streak-chip">🔥 <strong id="statStreak">0</strong></span>
+        <span>Time <strong id="statTime">0:00</strong></span>
+      </div>
+
+      <div class="prompt-card" id="promptCard">
+        <p class="question-text" id="questionText" hidden></p>
+        <div class="equation-row" id="equationRow">
+          <span class="eq-left" id="eqLeft"></span>
+          <input class="answer-input" id="answerInput" type="number" inputmode="numeric" autocomplete="off" placeholder="?" aria-label="Your answer" />
+        </div>
+        <p class="feedback" id="feedbackText" aria-live="polite"></p>
+      </div>
+
+      <div class="play-actions">
+        <button class="btn btn-solid btn-lg btn-block" id="submitBtn">Check Answer</button>
+        <button class="btn btn-solid btn-lg btn-block" id="nextBtn" hidden>Next Question</button>
+      </div>
+
+      <div class="quiz-streak" id="quizStreak" hidden>Streak 🔥 <strong id="quizStreakVal">0</strong></div>
+    </div>
+  </section>
+
+  <!-- RESULTS SCREEN -->
+  <section id="screen-results" class="screen" data-screen="results">
+    <div class="container narrow">
+      <div class="results-card">
+        <div class="confetti-layer" id="confettiLayer"></div>
+        <h2 id="resultsHeadline">Great work!</h2>
+        <p id="resultsSub">You finished the Addition quiz.</p>
+        <div class="results-grid">
+          <div class="result-stat"><span class="rs-label" id="scoreLabel">Score</span><span class="rs-value" id="resultScore">0/0</span></div>
+          <div class="result-stat"><span class="rs-label">Accuracy</span><span class="rs-value" id="resultAccuracy">0%</span></div>
+          <div class="result-stat"><span class="rs-label">Best Streak</span><span class="rs-value" id="resultStreak">0</span></div>
+          <div class="result-stat"><span class="rs-label">Time</span><span class="rs-value" id="resultTime">0:00</span></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-solid btn-lg" id="playAgainBtn">Play Again</button>
+          <button class="btn btn-ghost btn-lg" id="chooseCatBtn">Choose Another Category</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">Practice arithmetic anytime — no sign-up, no pressure.</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
